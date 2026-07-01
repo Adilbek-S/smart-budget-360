@@ -18,6 +18,7 @@ import {
   ACTION_LOG_AUTHORS,
   ACTION_LOG_SECTIONS,
   BUDGET_VERSIONS,
+  departmentShort,
 } from "@/lib/mock-data";
 import { formatCompactTenge, formatDate, formatDateTime, formatFullTenge } from "@/lib/format";
 import { FilterBar } from "@/components/filters/filter-bar";
@@ -31,7 +32,7 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"];
 
 export default function HistoryPage() {
-  const { year, period } = useFilters();
+  const { year, period, scope } = useFilters();
   const [tab, setTab] = useState<TabId>("versions");
 
   const [author, setAuthor] = useState("all");
@@ -54,12 +55,13 @@ export default function HistoryPage() {
         const periodQuarter = { q1: 1, q2: 2, q3: 3, q4: 4 }[period];
         if (periodQuarter && entryQuarter !== periodQuarter) return false;
       }
+      if (scope !== "org" && entry.department !== scope) return false;
       if (author !== "all" && entry.author !== author) return false;
       if (section !== "all" && entry.section !== section) return false;
       if (actionType !== "all" && entry.action !== actionType) return false;
       return true;
     }).sort((a, b) => (a.dateTime < b.dateTime ? 1 : -1));
-  }, [year, period, author, section, actionType]);
+  }, [year, period, scope, author, section, actionType]);
 
   return (
     <div className="mx-auto flex max-w-[1400px] flex-col gap-6">
@@ -200,11 +202,12 @@ export default function HistoryPage() {
               </p>
             ) : (
               <div className="max-h-[600px] overflow-auto rounded-lg border border-line-soft">
-                <table className="w-full min-w-[880px] border-collapse text-sm">
+                <table className="w-full min-w-[1000px] border-collapse text-sm">
                   <thead>
                     <tr className="sticky top-0 z-10 bg-canvas-3 text-left text-xs font-semibold uppercase tracking-wide text-ink-muted">
                       <th className="px-4 py-3">Дата и время</th>
                       <th className="px-3 py-3">Пользователь</th>
+                      <th className="px-3 py-3">Подразделение</th>
                       <th className="px-3 py-3">Раздел</th>
                       <th className="px-3 py-3">Действие</th>
                       <th className="px-3 py-3">Объект</th>
@@ -216,6 +219,7 @@ export default function HistoryPage() {
                       <tr key={entry.id} className="border-b border-line-soft last:border-0 transition-colors hover:bg-canvas-3/60">
                         <td className="whitespace-nowrap px-4 py-3 text-ink-soft">{formatDateTime(entry.dateTime)}</td>
                         <td className="px-3 py-3 font-medium text-ink">{entry.author}</td>
+                        <td className="px-3 py-3 text-ink-soft">{departmentShort(entry.department)}</td>
                         <td className="px-3 py-3 text-ink-soft">{entry.section}</td>
                         <td className="px-3 py-3 text-ink-soft">{entry.action}</td>
                         <td className="max-w-[220px] px-3 py-3 text-ink-soft">

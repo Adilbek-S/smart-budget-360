@@ -26,9 +26,9 @@ export function ProductsTab({ year, scope }: { year: Year; scope: "org" | Depart
   }));
 
   const byResult = [...products].sort((a, b) => b.result - a.result);
-  const byUsers = [...products]
-    .filter((p) => p.usersPlan > 0)
-    .sort((a, b) => b.usersCompletionPercent - a.usersCompletionPercent);
+  const byVolume = [...products]
+    .filter((p) => p.volumePlan > 0)
+    .sort((a, b) => b.volumeCompletionPercent - a.volumeCompletionPercent);
 
   return (
     <div className="flex flex-col gap-6">
@@ -89,23 +89,24 @@ export function ProductsTab({ year, scope }: { year: Year; scope: "org" | Depart
         </Card>
 
         <Card>
-          <CardHeader title="Выполнение плана пользователей" subtitle="Факт к плану по продукту" />
-          {byUsers.length === 0 ? (
-            <p className="py-8 text-center text-sm text-ink-muted">Нет данных по пользователям.</p>
+          <CardHeader title="Выполнение плана по объёму" subtitle="Факт к плану по продукту, ед. изм." />
+          {byVolume.length === 0 ? (
+            <p className="py-8 text-center text-sm text-ink-muted">Нет данных по объёму операций.</p>
           ) : (
             <ul className="flex flex-col gap-4">
-              {byUsers.map((p) => (
+              {byVolume.map((p) => (
                 <li key={p.productId}>
-                  <div className="mb-1.5 flex items-center justify-between text-sm">
-                    <span className="truncate font-medium text-ink">{p.name}</span>
+                  <div className="mb-1.5 flex items-center justify-between gap-2 text-sm">
+                    <span className="min-w-0 truncate font-medium text-ink">{p.name}</span>
                     <span className="shrink-0 font-semibold text-ink-soft">
-                      {formatPercent(p.usersCompletionPercent, 0)}
+                      {formatPercent(p.volumeCompletionPercent, 0)}
+                      <span className="ml-1 font-normal text-ink-muted">тыс. {p.volumeUnit}</span>
                     </span>
                   </div>
                   <div className="h-2 w-full overflow-hidden rounded-full bg-canvas-3">
                     <div
-                      className={`h-full rounded-full ${p.usersCompletionPercent >= 100 ? "bg-accent" : "bg-primary"}`}
-                      style={{ width: `${Math.min(100, p.usersCompletionPercent)}%` }}
+                      className={`h-full rounded-full ${p.volumeCompletionPercent >= 100 ? "bg-accent" : "bg-primary"}`}
+                      style={{ width: `${Math.min(100, p.volumeCompletionPercent)}%` }}
                     />
                   </div>
                 </li>

@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { DEPARTMENTS, PRODUCTS } from "@/lib/mock-data";
-import { useBudgetLines } from "@/lib/use-budget-lines";
-import type { BudgetLineType, DepartmentId, Year } from "@/lib/types";
+import { useIncomeRows } from "@/lib/use-income-rows";
+import type { DepartmentId, Year } from "@/lib/types";
 
 const QUARTERS: { id: 1 | 2 | 3 | 4; label: string }[] = [
   { id: 1, label: "I квартал" },
@@ -13,41 +13,43 @@ const QUARTERS: { id: 1 | 2 | 3 | 4; label: string }[] = [
   { id: 4, label: "IV квартал" },
 ];
 
+const REAL_PRODUCTS = PRODUCTS.filter((p) => p.id !== "none");
+
 const FIELD_CLASS =
   "w-full rounded-lg border border-line-soft bg-white px-3 py-2 text-sm text-ink outline-none focus:border-teal";
 const LABEL_CLASS = "mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink-muted";
 
-interface NewBudgetLineModalProps {
+interface NewIncomeRowModalProps {
   open: boolean;
   onClose: () => void;
   year: Year;
 }
 
-export function NewBudgetLineModal({ open, onClose, year }: NewBudgetLineModalProps) {
-  const { addLine } = useBudgetLines();
+export function NewIncomeRowModal({ open, onClose, year }: NewIncomeRowModalProps) {
+  const { addRow } = useIncomeRows();
 
   const [department, setDepartment] = useState<DepartmentId>(DEPARTMENTS[0].id);
   const [quarter, setQuarter] = useState<1 | 2 | 3 | 4>(1);
-  const [article, setArticle] = useState("");
-  const [type, setType] = useState<BudgetLineType>("opex");
-  const [unit, setUnit] = useState("шт.");
-  const [quantityPlan, setQuantityPlan] = useState("");
-  const [amountPlan, setAmountPlan] = useState("");
-  const [productId, setProductId] = useState<string>("none");
-  const [justification, setJustification] = useState("");
+  const [productId, setProductId] = useState<string>(REAL_PRODUCTS[0]?.id ?? "");
+  const [isActiveService, setIsActiveService] = useState(true);
+  const [volumePlan, setVolumePlan] = useState("");
+  const [unit, setUnit] = useState("транзакции");
+  const [incomePlan, setIncomePlan] = useState("");
+  const [tariff, setTariff] = useState("");
+  const [comment, setComment] = useState("");
 
-  const isValid = article.trim().length > 0 && Number(quantityPlan) > 0 && Number(amountPlan) > 0;
+  const isValid = productId.length > 0 && Number(volumePlan) > 0 && Number(incomePlan) > 0;
 
   function reset() {
     setDepartment(DEPARTMENTS[0].id);
     setQuarter(1);
-    setArticle("");
-    setType("opex");
-    setUnit("шт.");
-    setQuantityPlan("");
-    setAmountPlan("");
-    setProductId("none");
-    setJustification("");
+    setProductId(REAL_PRODUCTS[0]?.id ?? "");
+    setIsActiveService(true);
+    setVolumePlan("");
+    setUnit("транзакции");
+    setIncomePlan("");
+    setTariff("");
+    setComment("");
   }
 
   function handleClose() {
@@ -57,17 +59,17 @@ export function NewBudgetLineModal({ open, onClose, year }: NewBudgetLineModalPr
 
   function handleSubmit() {
     if (!isValid) return;
-    addLine({
+    addRow({
       year,
       quarter,
       department,
-      article: article.trim(),
-      type,
-      unit: unit.trim() || "шт.",
-      quantityPlan: Number(quantityPlan),
-      amountPlan: Number(amountPlan),
-      productId: productId === "none" ? "none" : productId,
-      justification: justification.trim() || "Обоснование не указано.",
+      productId,
+      isActiveService,
+      volumePlan: Number(volumePlan),
+      unit: unit.trim() || "транзакции",
+      incomePlan: Number(incomePlan),
+      tariff: tariff.trim() || "Не указан",
+      comment: comment.trim() || "Комментарий не указан.",
     });
     reset();
     onClose();
@@ -77,8 +79,8 @@ export function NewBudgetLineModal({ open, onClose, year }: NewBudgetLineModalPr
     <Modal
       open={open}
       onClose={handleClose}
-      title="Новая строка"
-      subtitle="Бюджетная строка будет добавлена в статусе «Черновик»"
+      title="Новая строка дохода"
+      subtitle="Строка будет добавлена с плановыми показателями"
       footer={
         <>
           <button
@@ -129,48 +131,38 @@ export function NewBudgetLineModal({ open, onClose, year }: NewBudgetLineModalPr
           </div>
         </div>
 
-        <div>
-          <label className={LABEL_CLASS}>Статья расхода</label>
-          <input
-            value={article}
-            onChange={(e) => setArticle(e.target.value)}
-            placeholder="Например, обучение сотрудников"
-            className={FIELD_CLASS}
-          />
-        </div>
-
         <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className={LABEL_CLASS}>Тип</label>
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value as BudgetLineType)}
-              className={FIELD_CLASS}
-            >
-              <option value="opex">OPEX</option>
-              <option value="capex">CAPEX</option>
-            </select>
-          </div>
           <div>
             <label className={LABEL_CLASS}>Продукт</label>
             <select value={productId} onChange={(e) => setProductId(e.target.value)} className={FIELD_CLASS}>
-              {PRODUCTS.map((p) => (
+              {REAL_PRODUCTS.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.name}
                 </option>
               ))}
             </select>
           </div>
+          <div>
+            <label className={LABEL_CLASS}>Действующая услуга</label>
+            <select
+              value={isActiveService ? "yes" : "no"}
+              onChange={(e) => setIsActiveService(e.target.value === "yes")}
+              className={FIELD_CLASS}
+            >
+              <option value="yes">Да</option>
+              <option value="no">Нет (пилот)</option>
+            </select>
+          </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className={LABEL_CLASS}>Плановое количество</label>
+            <label className={LABEL_CLASS}>Плановый объём, тыс.</label>
             <input
               type="number"
               min={0}
-              value={quantityPlan}
-              onChange={(e) => setQuantityPlan(e.target.value)}
+              value={volumePlan}
+              onChange={(e) => setVolumePlan(e.target.value)}
               placeholder="0"
               className={FIELD_CLASS}
             />
@@ -180,30 +172,42 @@ export function NewBudgetLineModal({ open, onClose, year }: NewBudgetLineModalPr
             <input
               value={unit}
               onChange={(e) => setUnit(e.target.value)}
-              placeholder="шт., лиц., дог."
+              placeholder="транзакции, пользователи…"
+              className={FIELD_CLASS}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className={LABEL_CLASS}>Плановый доход, ₸</label>
+            <input
+              type="number"
+              min={0}
+              value={incomePlan}
+              onChange={(e) => setIncomePlan(e.target.value)}
+              placeholder="0"
               className={FIELD_CLASS}
             />
           </div>
           <div>
-            <label className={LABEL_CLASS}>Плановая сумма, ₸</label>
+            <label className={LABEL_CLASS}>Тариф</label>
             <input
-              type="number"
-              min={0}
-              value={amountPlan}
-              onChange={(e) => setAmountPlan(e.target.value)}
-              placeholder="0"
+              value={tariff}
+              onChange={(e) => setTariff(e.target.value)}
+              placeholder="Например, 0,3% от суммы транзакции"
               className={FIELD_CLASS}
             />
           </div>
         </div>
 
         <div>
-          <label className={LABEL_CLASS}>Обоснование</label>
+          <label className={LABEL_CLASS}>Комментарий</label>
           <textarea
-            value={justification}
-            onChange={(e) => setJustification(e.target.value)}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             rows={3}
-            placeholder="Кратко опишите причину и цель расхода"
+            placeholder="Кратко опишите основание плана"
             className={`${FIELD_CLASS} resize-none`}
           />
         </div>

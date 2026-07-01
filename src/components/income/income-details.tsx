@@ -2,6 +2,7 @@ import type { IncomeProductRow } from "@/lib/types";
 import { PRODUCTS, PRODUCT_STAGE_LABEL, departmentName, productName } from "@/lib/mock-data";
 import { formatFullTenge, formatSignedPercent } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
+import { FactSourceIcon } from "@/components/ui/fact-source-icon";
 
 const QUARTER_LABEL: Record<number, string> = {
   1: "I квартал",
@@ -38,15 +39,19 @@ export function IncomeDetails({ row }: { row: IncomeProductRow }) {
         </Badge>
       </Field>
       <Field label="Рост или снижение">{formatSignedPercent(row.growthRate, 0)}</Field>
+      <Field label="Единица измерения">{row.unit}</Field>
       <Field label="Объём операций: план / факт">
-        {row.volumePlan.toLocaleString("ru-RU")} тыс. / {row.volumeFact.toLocaleString("ru-RU")} тыс.
-      </Field>
-      <Field label="Количество пользователей: план / факт">
-        {row.usersPlan.toLocaleString("ru-RU")} / {row.usersFact.toLocaleString("ru-RU")}
+        {row.volumePlan.toLocaleString("ru-RU")} тыс. {row.unit} / {row.volumeFact.toLocaleString("ru-RU")} тыс.{" "}
+        {row.unit}
       </Field>
       <Field label="Тариф">{row.tariff}</Field>
       <Field label="Плановый доход">{formatFullTenge(row.incomePlan)}</Field>
-      <Field label="Фактический доход">{formatFullTenge(row.incomeFact)}</Field>
+      <Field label="Фактический доход">
+        <span className="inline-flex items-center gap-1.5">
+          {formatFullTenge(row.incomeFact)}
+          <FactSourceIcon source={row.factSource} />
+        </span>
+      </Field>
       <Field label="Формула расчёта">{row.calculation}</Field>
       <Field label="Комментарий">{row.comment}</Field>
     </div>

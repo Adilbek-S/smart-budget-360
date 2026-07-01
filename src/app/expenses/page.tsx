@@ -12,6 +12,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { StatCard } from "@/components/ui/stat-card";
 import { SidePanel } from "@/components/ui/side-panel";
 import { HistoryTimeline } from "@/components/ui/history-timeline";
+import { FactSourceLegend } from "@/components/ui/fact-source-icon";
 import { BudgetLinesTable, type SortDir, type SortKey } from "@/components/expenses/budget-lines-table";
 import { BudgetLineDetails } from "@/components/expenses/budget-line-details";
 import { NewBudgetLineModal } from "@/components/expenses/new-budget-line-modal";
@@ -147,6 +148,7 @@ export default function ExpensesPage() {
         <CardHeader
           title="Бюджетные строки"
           subtitle={`Показано строк: ${filteredRows.length}`}
+          action={<FactSourceLegend />}
         />
         <BudgetLinesTable
           rows={filteredRows}

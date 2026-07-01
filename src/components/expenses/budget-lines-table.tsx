@@ -2,14 +2,9 @@
 
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import type { BudgetLine } from "@/lib/types";
-import {
-  BUDGET_LINE_STATUS_META,
-  BUDGET_LINE_TYPE_LABEL,
-  departmentShort,
-  productName,
-} from "@/lib/mock-data";
+import { BUDGET_LINE_TYPE_LABEL, departmentShort, productName } from "@/lib/mock-data";
 import { formatCompactTenge, formatSignedPercent } from "@/lib/format";
-import { Badge } from "@/components/ui/badge";
+import { FactSourceIcon } from "@/components/ui/fact-source-icon";
 
 export type SortKey = "amount" | "deviation" | null;
 export type SortDir = "asc" | "desc";
@@ -77,6 +72,7 @@ export function BudgetLinesTable({ rows, onSelectRow, sortKey, sortDir, onSort }
             <th className="px-3 py-3">Тип</th>
             <th className="px-3 py-3">Продукт</th>
             <th className="px-3 py-3">Кв.</th>
+            <th className="px-3 py-3">Ед. изм.</th>
             <th className="px-3 py-3 text-right">Кол-во план/факт</th>
             <th className="px-3 py-3 text-right">
               <SortHeader
@@ -86,7 +82,7 @@ export function BudgetLinesTable({ rows, onSelectRow, sortKey, sortDir, onSort }
                 onClick={() => onSort("amount")}
               />
             </th>
-            <th className="px-3 py-3 text-right">
+            <th className="px-4 py-3 text-right">
               <SortHeader
                 label="Отклонение"
                 active={sortKey === "deviation"}
@@ -94,7 +90,6 @@ export function BudgetLinesTable({ rows, onSelectRow, sortKey, sortDir, onSort }
                 onClick={() => onSort("deviation")}
               />
             </th>
-            <th className="px-4 py-3 text-right">Статус</th>
           </tr>
         </thead>
         <tbody>
@@ -108,7 +103,6 @@ export function BudgetLinesTable({ rows, onSelectRow, sortKey, sortDir, onSort }
             rows.map((row) => {
               const deviation = row.amountFact - row.amountPlan;
               const deviationPercent = row.amountPlan !== 0 ? (deviation / row.amountPlan) * 100 : 0;
-              const statusMeta = BUDGET_LINE_STATUS_META[row.status];
               return (
                 <tr
                   key={row.id}
@@ -139,18 +133,23 @@ export function BudgetLinesTable({ rows, onSelectRow, sortKey, sortDir, onSort }
                     </span>
                   </td>
                   <td className="px-3 py-3 text-ink-soft">{QUARTER_LABEL[row.quarter]}</td>
+                  <td className="max-w-[100px] px-3 py-3 text-ink-soft">
+                    <span className="block truncate" title={row.unit}>
+                      {row.unit}
+                    </span>
+                  </td>
                   <td className="px-3 py-3 text-right text-ink-soft tabular-nums">
-                    {row.quantityPlan.toLocaleString("ru-RU")} / {row.quantityFact.toLocaleString("ru-RU")} {row.unit}
+                    {row.quantityPlan.toLocaleString("ru-RU")} / {row.quantityFact.toLocaleString("ru-RU")}
                   </td>
                   <td className="px-3 py-3 text-right tabular-nums">
                     <span className="block text-xs text-ink-muted">{formatCompactTenge(row.amountPlan)}</span>
-                    <span className="block font-semibold text-ink">{formatCompactTenge(row.amountFact)}</span>
+                    <span className="flex items-center justify-end gap-1.5 font-semibold text-ink">
+                      <FactSourceIcon source={row.factSource} />
+                      {formatCompactTenge(row.amountFact)}
+                    </span>
                   </td>
-                  <td className={`px-3 py-3 text-right font-semibold tabular-nums ${RISK_TEXT_CLASS[row.risk]}`}>
+                  <td className={`px-4 py-3 text-right font-semibold tabular-nums ${RISK_TEXT_CLASS[row.risk]}`}>
                     {formatSignedPercent(deviationPercent)}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <Badge tone={statusMeta.tone}>{statusMeta.label}</Badge>
                   </td>
                 </tr>
               );

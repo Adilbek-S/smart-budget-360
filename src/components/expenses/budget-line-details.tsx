@@ -7,6 +7,7 @@ import {
 } from "@/lib/mock-data";
 import { formatDate, formatFullTenge } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
+import { FactSourceIcon } from "@/components/ui/fact-source-icon";
 
 const QUARTER_LABEL: Record<number, string> = {
   1: "I квартал",
@@ -35,12 +36,19 @@ export function BudgetLineDetails({ line }: { line: BudgetLine }) {
         {QUARTER_LABEL[line.quarter]} {line.year}
       </Field>
       <Field label="Тип">{BUDGET_LINE_TYPE_LABEL[line.type]}</Field>
+      <Field label="Единица измерения">{line.unit}</Field>
       <Field label="Количество: план / факт">
         {line.quantityPlan.toLocaleString("ru-RU")} {line.unit} / {line.quantityFact.toLocaleString("ru-RU")}{" "}
         {line.unit}
       </Field>
       <Field label="Сумма: план / факт">
-        {formatFullTenge(line.amountPlan)} / <span className="font-semibold">{formatFullTenge(line.amountFact)}</span>
+        <span className="inline-flex items-center gap-1.5">
+          {formatFullTenge(line.amountPlan)} /{" "}
+          <span className="inline-flex items-center gap-1.5 font-semibold">
+            {formatFullTenge(line.amountFact)}
+            <FactSourceIcon source={line.factSource} />
+          </span>
+        </span>
       </Field>
       <Field label="Расчёт">{line.calculation}</Field>
       <Field label="Обоснование">{line.justification}</Field>

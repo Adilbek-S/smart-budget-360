@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Gauge, Target, TrendingUp, Wallet } from "lucide-react";
+import { Gauge, Plus, Target, TrendingUp, Wallet } from "lucide-react";
 import {
   Bar,
   BarChart,
@@ -31,8 +31,11 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { StatCard } from "@/components/ui/stat-card";
 import { SidePanel } from "@/components/ui/side-panel";
 import { HistoryTimeline } from "@/components/ui/history-timeline";
+import { FactSourceLegend } from "@/components/ui/fact-source-icon";
 import { IncomeTable, type IncomeSortKey, type SortDir } from "@/components/income/income-table";
 import { IncomeDetails } from "@/components/income/income-details";
+import { NewIncomeRowModal } from "@/components/income/new-income-row-modal";
+import { useIncomeRows } from "@/lib/use-income-rows";
 import type { DepartmentId, IncomeProductRow } from "@/lib/types";
 
 type StageFilter = "all" | "new" | "existing";
@@ -46,6 +49,7 @@ const STAGE_OPTIONS: { id: StageFilter; label: string }[] = [
 export default function IncomePage() {
   const { year, period, scope } = useFilters();
   const kpi = useMemo(() => getKpi(year, period, scope), [year, period, scope]);
+  const { customRows } = useIncomeRows();
 
   const [selectedDepartments, setSelectedDepartments] = useState<DepartmentId[]>(
     DEPARTMENTS.map((d) => d.id)
@@ -54,6 +58,9 @@ export default function IncomePage() {
   const [sortKey, setSortKey] = useState<IncomeSortKey>(null);
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [selectedRow, setSelectedRow] = useState<IncomeProductRow | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const allRows = useMemo(() => [...INCOME_PRODUCT_ROWS, ...customRows], [customRows]);
 
   const incomeMonthly = useMemo(() => {
     const series = getIncomeMonthlySeries(year, scope);
@@ -73,7 +80,7 @@ export default function IncomePage() {
   const quarterFromMonth = quarterFilter ? Math.ceil(quarterFilter / 3) : null;
 
   const filteredRows = useMemo(() => {
-    let rows = INCOME_PRODUCT_ROWS.filter((row) => row.year === year);
+    let rows = allRows.filter((row) => row.year === year);
     if (quarterFromMonth) rows = rows.filter((row) => row.quarter === quarterFromMonth);
     rows = rows.filter((row) => selectedDepartments.includes(row.department));
     if (stageFilter !== "all") {
@@ -92,7 +99,7 @@ export default function IncomePage() {
       });
     }
     return rows;
-  }, [year, quarterFromMonth, selectedDepartments, stageFilter, sortKey, sortDir]);
+  }, [allRows, year, quarterFromMonth, selectedDepartments, stageFilter, sortKey, sortDir]);
 
   function handleSort(key: "income" | "completion") {
     if (sortKey === key) {
@@ -105,9 +112,18 @@ export default function IncomePage() {
 
   return (
     <div className="mx-auto flex max-w-[1400px] flex-col gap-6">
-      <div>
-        <h2 className="text-2xl font-bold text-primary-dark">Доходы</h2>
-        <p className="mt-1 text-sm text-ink-muted">Планирование доходов по продуктам и услугам</p>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-primary-dark">Доходы</h2>
+          <p className="mt-1 text-sm text-ink-muted">Планирование доходов по продуктам и услугам</p>
+        </div>
+        <button
+          onClick={() => setModalOpen(true)}
+          className="flex shrink-0 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+        >
+          <Plus size={16} />
+          Новая строка
+        </button>
       </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -200,7 +216,11 @@ export default function IncomePage() {
       </Card>
 
       <Card>
-        <CardHeader title="Доходы по продуктам" subtitle={`Показано строк: ${filteredRows.length}`} />
+        <CardHeader
+          title="Доходы по продуктам"
+          subtitle={`Показано строк: ${filteredRows.length}`}
+          action={<FactSourceLegend />}
+        />
         <IncomeTable
           rows={filteredRows}
           onSelectRow={setSelectedRow}
@@ -229,6 +249,8 @@ export default function IncomePage() {
             : []
         }
       />
+
+      <NewIncomeRowModal open={modalOpen} onClose={() => setModalOpen(false)} year={year} />
     </div>
   );
 }

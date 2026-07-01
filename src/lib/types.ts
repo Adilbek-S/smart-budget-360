@@ -97,6 +97,10 @@ export type BudgetLineStatus = "draft" | "review" | "approved" | "clarification"
 
 export type LineRisk = "high" | "moderate" | "none";
 
+// How the "факт" value was populated: pulled automatically from the accounting
+// system (e.g. 1С) or entered manually by a user.
+export type FactSource = "auto" | "manual";
+
 export interface LineHistoryEntry {
   id: string;
   dateTime: string; // ISO datetime
@@ -119,6 +123,7 @@ export interface BudgetLine {
   quantityFact: number;
   amountPlan: number;
   amountFact: number;
+  factSource: FactSource;
   calculation: string;
   justification: string;
   relatedDepartments: DepartmentId[];
@@ -153,10 +158,10 @@ export interface IncomeProductRow {
   growthRate: number; // percent, may be negative
   volumePlan: number;
   volumeFact: number;
-  usersPlan: number;
-  usersFact: number;
+  unit: string; // e.g. "транзакции", "пользователи", "запросы"
   incomePlan: number;
   incomeFact: number;
+  factSource: FactSource;
   tariff: string;
   calculation: string;
   comment: string;
@@ -246,6 +251,7 @@ export interface ActionLogEntry {
   id: string;
   dateTime: string; // ISO datetime
   author: string;
+  department: DepartmentId;
   section: string;
   action: string;
   object: string;

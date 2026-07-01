@@ -727,6 +727,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Динара Ахметова",
     updatedAt: "2026-06-15T14:32:00",
+    factSource: "auto",
     history: [
       {
         id: "bl1-h1",
@@ -769,6 +770,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "high",
     author: "Ержан Тулегенов",
     updatedAt: "2026-06-02T11:15:00",
+    factSource: "manual",
     history: [
       {
         id: "bl2-h1",
@@ -819,6 +821,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Динара Ахметова",
     updatedAt: "2026-03-10T13:20:00",
+    factSource: "auto",
     history: [
       {
         id: "bl3-h1",
@@ -860,6 +863,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "moderate",
     author: "Марат Жумабеков",
     updatedAt: "2026-06-25T10:00:00",
+    factSource: "manual",
     history: [
       {
         id: "bl4-h1",
@@ -902,6 +906,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "high",
     author: "Алия Сериккызы",
     updatedAt: "2026-06-20T15:45:00",
+    factSource: "manual",
     history: [
       {
         id: "bl5-h1",
@@ -943,6 +948,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Гульнара Бекова",
     updatedAt: "2026-02-05T12:00:00",
+    factSource: "auto",
     history: [
       {
         id: "bl6-h1",
@@ -984,6 +990,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "moderate",
     author: "Ержан Тулегенов",
     updatedAt: "2026-05-12T09:40:00",
+    factSource: "auto",
     history: [
       {
         id: "bl7-h1",
@@ -1025,6 +1032,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Ержан Тулегенов",
     updatedAt: "2026-06-08T14:10:00",
+    factSource: "manual",
     history: [
       {
         id: "bl8-h1",
@@ -1066,6 +1074,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Динара Ахметова",
     updatedAt: "2026-06-01T10:30:00",
+    factSource: "auto",
     history: [
       {
         id: "bl9-h1",
@@ -1107,6 +1116,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Алия Сериккызы",
     updatedAt: "2026-03-28T11:00:00",
+    factSource: "auto",
     history: [
       {
         id: "bl10-h1",
@@ -1148,6 +1158,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "moderate",
     author: "Марат Жумабеков",
     updatedAt: "2026-06-18T09:50:00",
+    factSource: "manual",
     history: [
       {
         id: "bl11-h1",
@@ -1189,6 +1200,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Асем Нурланова",
     updatedAt: "2026-01-25T10:00:00",
+    factSource: "auto",
     history: [
       {
         id: "bl12-h1",
@@ -1221,6 +1233,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Гульнара Бекова",
     updatedAt: "2026-06-22T13:15:00",
+    factSource: "manual",
     history: [
       {
         id: "bl13-h1",
@@ -1253,6 +1266,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "high",
     author: "Гульнара Бекова",
     updatedAt: "2026-06-05T16:00:00",
+    factSource: "auto",
     history: [
       {
         id: "bl14-h1",
@@ -1294,6 +1308,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Динара Ахметова",
     updatedAt: "2026-06-20T09:00:00",
+    factSource: "manual",
     history: [
       {
         id: "bl15-h1",
@@ -1326,6 +1341,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Ержан Тулегенов",
     updatedAt: "2026-02-10T10:20:00",
+    factSource: "auto",
     history: [
       {
         id: "bl16-h1",
@@ -1358,6 +1374,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "none",
     author: "Асем Нурланова",
     updatedAt: "2026-06-12T09:30:00",
+    factSource: "manual",
     history: [
       {
         id: "bl17-h1",
@@ -1390,6 +1407,7 @@ export const BUDGET_LINES: BudgetLine[] = [
     risk: "moderate",
     author: "Динара Ахметова",
     updatedAt: "2026-06-27T15:00:00",
+    factSource: "manual",
     history: [
       {
         id: "bl18-h1",
@@ -1437,8 +1455,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 18,
     volumePlan: 2400,
     volumeFact: 2650,
-    usersPlan: 850_000,
-    usersFact: 910_000,
+    unit: "транзакции",
     incomePlan: 620_000_000,
     incomeFact: 690_000_000,
     tariff: "0,35% от суммы транзакции",
@@ -1446,6 +1463,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Рост за счёт кампании кэшбэка и увеличения активной аудитории приложения.",
     author: "Алия Сериккызы",
     updatedAt: "2026-04-05T11:00:00",
+    factSource: "auto",
     history: [
       {
         id: "ir1-h1",
@@ -1477,8 +1495,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 15,
     volumePlan: 2600,
     volumeFact: 2500,
-    usersPlan: 930_000,
-    usersFact: 945_000,
+    unit: "транзакции",
     incomePlan: 660_000_000,
     incomeFact: 615_000_000,
     tariff: "0,35% от суммы транзакции",
@@ -1486,6 +1503,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Небольшое отставание от плана из-за сезонного снижения активности в мае.",
     author: "Алия Сериккызы",
     updatedAt: "2026-07-01T10:00:00",
+    factSource: "auto",
     history: [
       {
         id: "ir2-h1",
@@ -1517,8 +1535,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 9,
     volumePlan: 480,
     volumeFact: 505,
-    usersPlan: 12_000,
-    usersFact: 12_400,
+    unit: "запросы",
     incomePlan: 210_000_000,
     incomeFact: 224_000_000,
     tariff: "0,2% от суммы платежа, мин. 500 ₸",
@@ -1526,6 +1543,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Рост числа корпоративных клиентов после запуска зарплатных проектов.",
     author: "Асем Нурланова",
     updatedAt: "2026-04-08T09:30:00",
+    factSource: "auto",
     history: [
       {
         id: "ir3-h1",
@@ -1557,8 +1575,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 11,
     volumePlan: 520,
     volumeFact: 540,
-    usersPlan: 12_600,
-    usersFact: 12_900,
+    unit: "запросы",
     incomePlan: 225_000_000,
     incomeFact: 236_000_000,
     tariff: "0,2% от суммы платежа, мин. 500 ₸",
@@ -1566,6 +1583,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Стабильный рост клиентской базы малого и среднего бизнеса.",
     author: "Асем Нурланова",
     updatedAt: "2026-07-01T09:15:00",
+    factSource: "manual",
     history: [
       {
         id: "ir4-h1",
@@ -1588,8 +1606,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 240,
     volumePlan: 90,
     volumeFact: 130,
-    usersPlan: 40_000,
-    usersFact: 61_000,
+    unit: "транзакции",
     incomePlan: 32_000_000,
     incomeFact: 48_000_000,
     tariff: "1,2% от суммы операции",
@@ -1597,6 +1614,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Быстрый рост нового продукта после подключения первых крупных мерчантов.",
     author: "Динара Ахметова",
     updatedAt: "2026-04-03T10:45:00",
+    factSource: "auto",
     history: [
       {
         id: "ir5-h1",
@@ -1628,8 +1646,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 320,
     volumePlan: 15,
     volumeFact: 6,
-    usersPlan: 5_000,
-    usersFact: 1_800,
+    unit: "транзакции",
     incomePlan: 4_000_000,
     incomeFact: 1_100_000,
     tariff: "0,1% от суммы перевода",
@@ -1637,6 +1654,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Продукт находится в пилотной эксплуатации, полноценный запуск запланирован на III квартал.",
     author: "Динара Ахметова",
     updatedAt: "2026-07-01T08:30:00",
+    factSource: "manual",
     history: [
       {
         id: "ir6-h1",
@@ -1659,8 +1677,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 65,
     volumePlan: 320,
     volumeFact: 410,
-    usersPlan: 180_000,
-    usersFact: 235_000,
+    unit: "идентификации",
     incomePlan: 38_000_000,
     incomeFact: 49_500_000,
     tariff: "2,5% комиссия с транзакции партнёра",
@@ -1668,6 +1685,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Высокий интерес клиентов к программе лояльности после ребрендинга.",
     author: "Алия Сериккызы",
     updatedAt: "2026-04-06T14:00:00",
+    factSource: "manual",
     history: [
       {
         id: "ir7-h1",
@@ -1690,8 +1708,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 40,
     volumePlan: 380,
     volumeFact: 402,
-    usersPlan: 250_000,
-    usersFact: 268_000,
+    unit: "идентификации",
     incomePlan: 44_000_000,
     incomeFact: 46_800_000,
     tariff: "2,5% комиссия с транзакции партнёра",
@@ -1699,6 +1716,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Рост числа партнёров программы продолжается умеренными темпами.",
     author: "Алия Сериккызы",
     updatedAt: "2026-07-01T09:00:00",
+    factSource: "manual",
     history: [
       {
         id: "ir8-h1",
@@ -1721,8 +1739,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: -6,
     volumePlan: 18_000,
     volumeFact: 16_200,
-    usersPlan: 45_000,
-    usersFact: 41_000,
+    unit: "операции",
     incomePlan: 310_000_000,
     incomeFact: 288_000_000,
     tariff: "18–24% годовых",
@@ -1730,6 +1747,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Снижение объёма выдач связано с ужесточением скоринговой модели.",
     author: "Асем Нурланова",
     updatedAt: "2026-04-04T10:00:00",
+    factSource: "manual",
     history: [
       {
         id: "ir9-h1",
@@ -1752,8 +1770,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 4,
     volumePlan: 19_000,
     volumeFact: 19_800,
-    usersPlan: 46_500,
-    usersFact: 47_800,
+    unit: "операции",
     incomePlan: 320_000_000,
     incomeFact: 335_000_000,
     tariff: "18–24% годовых",
@@ -1761,6 +1778,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Восстановление темпов выдачи после калибровки скоринговой модели.",
     author: "Асем Нурланова",
     updatedAt: "2026-07-01T09:20:00",
+    factSource: "manual",
     history: [
       {
         id: "ir10-h1",
@@ -1783,8 +1801,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 12,
     volumePlan: 1800,
     volumeFact: 1950,
-    usersPlan: 8_200,
-    usersFact: 8_600,
+    unit: "транзакции",
     incomePlan: 145_000_000,
     incomeFact: 158_000_000,
     tariff: "1,8% от оборота торговой точки",
@@ -1792,6 +1809,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Подключение новых торговых точек в сегменте e-commerce.",
     author: "Алия Сериккызы",
     updatedAt: "2026-04-07T11:30:00",
+    factSource: "manual",
     history: [
       {
         id: "ir11-h1",
@@ -1814,8 +1832,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: 5,
     volumePlan: 42_000,
     volumeFact: 43_500,
-    usersPlan: 26_000,
-    usersFact: 27_200,
+    unit: "пользователи",
     incomePlan: 96_000_000,
     incomeFact: 101_000_000,
     tariff: "маржа 2,1% годовых",
@@ -1823,6 +1840,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Приток вкладов на фоне повышения ставок по онлайн-депозитам.",
     author: "Асем Нурланова",
     updatedAt: "2026-04-09T09:00:00",
+    factSource: "manual",
     history: [
       {
         id: "ir12-h1",
@@ -1845,8 +1863,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     growthRate: -8,
     volumePlan: 210_000,
     volumeFact: 189_000,
-    usersPlan: 54_000,
-    usersFact: 49_500,
+    unit: "сообщения",
     incomePlan: 58_000_000,
     incomeFact: 51_000_000,
     tariff: "спред 0,4–0,6%",
@@ -1854,6 +1871,7 @@ export const INCOME_PRODUCT_ROWS: IncomeProductRow[] = [
     comment: "Снижение объёмов конверсионных операций на фоне валютной волатильности.",
     author: "Асем Нурланова",
     updatedAt: "2026-07-01T10:30:00",
+    factSource: "manual",
     history: [
       {
         id: "ir13-h1",
@@ -2278,6 +2296,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al1",
     dateTime: "2026-06-28T09:15:00",
     author: "Адилбек Сагадиев",
+    department: "it",
     section: "Расходы",
     action: "Утверждение строки",
     object: "Продление лицензий Microsoft 365",
@@ -2287,6 +2306,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al2",
     dateTime: "2026-06-27T15:00:00",
     author: "Бюджетный комитет",
+    department: "it",
     section: "Расходы",
     action: "Возврат на уточнение",
     object: "Тестирование нагрузки системы онлайн-кредитования",
@@ -2296,6 +2316,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al3",
     dateTime: "2026-06-25T10:00:00",
     author: "Марат Жумабеков",
+    department: "sec",
     section: "Расходы",
     action: "Создание строки",
     object: "Обучение сотрудников по кибербезопасности",
@@ -2305,6 +2326,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al4",
     dateTime: "2026-06-22T13:15:00",
     author: "Гульнара Бекова",
+    department: "adm",
     section: "Расходы",
     action: "Создание строки",
     object: "Аренда офисных помещений",
@@ -2314,6 +2336,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al5",
     dateTime: "2026-06-20T15:45:00",
     author: "Бюджетный комитет",
+    department: "payments",
     section: "Согласование",
     action: "Возврат на уточнение",
     object: "Командировки на международные конференции",
@@ -2323,6 +2346,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al6",
     dateTime: "2026-06-18T09:50:00",
     author: "Бюджетный комитет",
+    department: "sec",
     section: "Согласование",
     action: "Возврат на уточнение",
     object: "Аудит информационной безопасности",
@@ -2332,6 +2356,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al7",
     dateTime: "2026-06-15T14:32:00",
     author: "Айжан Нуртаева",
+    department: "it",
     section: "Расходы",
     action: "Изменение суммы",
     object: "Лицензии корпоративного программного обеспечения",
@@ -2341,6 +2366,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al8",
     dateTime: "2026-06-10T11:00:00",
     author: "Адилбек Сагадиев",
+    department: "cards",
     section: "Согласование",
     action: "Утверждение",
     object: "Эквайринг для бизнеса — план дохода за II квартал",
@@ -2350,6 +2376,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al9",
     dateTime: "2026-06-05T16:00:00",
     author: "Гульнара Бекова",
+    department: "adm",
     section: "Расходы",
     action: "Изменение количества",
     object: "Закупка ноутбуков для новых сотрудников",
@@ -2359,6 +2386,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al10",
     dateTime: "2026-05-15T09:00:00",
     author: "Адилбек Сагадиев",
+    department: "fin",
     section: "Сценарии",
     action: "Утверждение сценария",
     object: "Базовый сценарий бюджета на III квартал",
@@ -2368,6 +2396,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al11",
     dateTime: "2026-04-30T10:00:00",
     author: "Асем Нурланова",
+    department: "fin",
     section: "Исполнение бюджета",
     action: "Закрытие периода",
     object: "Отчёт об исполнении за I квартал 2026",
@@ -2377,6 +2406,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al12",
     dateTime: "2026-04-05T11:00:00",
     author: "Алия Сериккызы",
+    department: "payments",
     section: "Доходы",
     action: "Изменение суммы",
     object: "Мобильное приложение SmartBank — факт за I квартал",
@@ -2386,6 +2416,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al13",
     dateTime: "2026-03-15T10:00:00",
     author: "Адилбек Сагадиев",
+    department: "fin",
     section: "Бюджет",
     action: "Утверждение версии",
     object: "V3 — Утверждённый бюджет",
@@ -2395,6 +2426,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al14",
     dateTime: "2026-02-20T09:00:00",
     author: "Бюджетный комитет",
+    department: "fin",
     section: "Бюджет",
     action: "Обновление версии",
     object: "V2 — После согласования подразделений",
@@ -2404,6 +2436,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al15",
     dateTime: "2026-01-25T10:00:00",
     author: "Асем Нурланова",
+    department: "fin",
     section: "Расходы",
     action: "Утверждение строки",
     object: "Консалтинговые услуги по МСФО",
@@ -2413,6 +2446,7 @@ export const ACTION_LOG: ActionLogEntry[] = [
     id: "al16",
     dateTime: "2026-01-10T09:00:00",
     author: "Асем Нурланова",
+    department: "fin",
     section: "Бюджет",
     action: "Создание версии",
     object: "V1 — Первоначальный план",
@@ -2432,9 +2466,10 @@ export interface ProductFinancials {
   income: number;
   expense: number;
   result: number;
-  usersPlan: number;
-  usersFact: number;
-  usersCompletionPercent: number;
+  volumePlan: number;
+  volumeFact: number;
+  volumeUnit: string;
+  volumeCompletionPercent: number;
 }
 
 export function getProductFinancials(year: Year, scope: "org" | DepartmentId): ProductFinancials[] {
@@ -2448,17 +2483,18 @@ export function getProductFinancials(year: Year, scope: "org" | DepartmentId): P
       );
       const income = incomeRows.reduce((sum, r) => sum + r.incomeFact, 0);
       const expense = expenseLines.reduce((sum, l) => sum + l.amountFact, 0);
-      const usersPlan = incomeRows.reduce((sum, r) => sum + r.usersPlan, 0);
-      const usersFact = incomeRows.reduce((sum, r) => sum + r.usersFact, 0);
+      const volumePlan = incomeRows.reduce((sum, r) => sum + r.volumePlan, 0);
+      const volumeFact = incomeRows.reduce((sum, r) => sum + r.volumeFact, 0);
       return {
         productId: product.id,
         name: product.name,
         income,
         expense,
         result: income - expense,
-        usersPlan,
-        usersFact,
-        usersCompletionPercent: usersPlan > 0 ? Math.round((usersFact / usersPlan) * 1000) / 10 : 0,
+        volumePlan,
+        volumeFact,
+        volumeUnit: incomeRows[0]?.unit ?? "",
+        volumeCompletionPercent: volumePlan > 0 ? Math.round((volumeFact / volumePlan) * 1000) / 10 : 0,
       };
     })
     .filter((p) => p.income > 0 || p.expense > 0);

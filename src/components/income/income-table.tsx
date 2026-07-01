@@ -2,9 +2,10 @@
 
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import type { IncomeProductRow } from "@/lib/types";
-import { PRODUCT_STAGE_LABEL, PRODUCTS, departmentShort, productName } from "@/lib/mock-data";
+import { PRODUCT_STAGE_LABEL, PRODUCTS, productName } from "@/lib/mock-data";
 import { formatCompactTenge, formatPercent, formatSignedPercent } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
+import { FactSourceIcon } from "@/components/ui/fact-source-icon";
 
 export type IncomeSortKey = "income" | "completion" | null;
 export type SortDir = "asc" | "desc";
@@ -74,8 +75,8 @@ export function IncomeTable({ rows, onSelectRow, sortKey, sortDir, onSort }: Inc
             <th className="px-3 py-3">Услуга</th>
             <th className="px-3 py-3">Тип</th>
             <th className="px-3 py-3 text-right">Рост</th>
+            <th className="px-3 py-3">Ед. изм.</th>
             <th className="px-3 py-3 text-right">Объём план/факт</th>
-            <th className="px-3 py-3 text-right">Пользователи план/факт</th>
             <th className="px-3 py-3 text-right">
               <SortHeader
                 label="Доход план/факт"
@@ -120,7 +121,6 @@ export function IncomeTable({ rows, onSelectRow, sortKey, sortDir, onSort }: Inc
                     <p className="truncate font-medium text-ink" title={productName(row.productId)}>
                       {productName(row.productId)}
                     </p>
-                    <p className="truncate text-xs text-ink-muted">{departmentShort(row.department)}</p>
                   </td>
                   <td className="px-3 py-3 text-ink-soft">{QUARTER_LABEL[row.quarter]}</td>
                   <td className="px-3 py-3">
@@ -134,15 +134,20 @@ export function IncomeTable({ rows, onSelectRow, sortKey, sortDir, onSort }: Inc
                   <td className={`px-3 py-3 text-right font-semibold tabular-nums ${growthTone(row.growthRate)}`}>
                     {formatSignedPercent(row.growthRate, 0)}
                   </td>
-                  <td className="px-3 py-3 text-right text-ink-soft tabular-nums">
-                    {row.volumePlan.toLocaleString("ru-RU")} / {row.volumeFact.toLocaleString("ru-RU")}
+                  <td className="max-w-[120px] px-3 py-3 text-ink-soft">
+                    <span className="block truncate" title={row.unit}>
+                      {row.unit}
+                    </span>
                   </td>
                   <td className="px-3 py-3 text-right text-ink-soft tabular-nums">
-                    {row.usersPlan.toLocaleString("ru-RU")} / {row.usersFact.toLocaleString("ru-RU")}
+                    {row.volumePlan.toLocaleString("ru-RU")} / {row.volumeFact.toLocaleString("ru-RU")} тыс.
                   </td>
                   <td className="px-3 py-3 text-right tabular-nums">
                     <span className="block text-xs text-ink-muted">{formatCompactTenge(row.incomePlan)}</span>
-                    <span className="block font-semibold text-ink">{formatCompactTenge(row.incomeFact)}</span>
+                    <span className="flex items-center justify-end gap-1.5 font-semibold text-ink">
+                      <FactSourceIcon source={row.factSource} />
+                      {formatCompactTenge(row.incomeFact)}
+                    </span>
                   </td>
                   <td className={`px-4 py-3 text-right font-semibold tabular-nums ${completionTone(completion)}`}>
                     {formatPercent(completion, 0)}
