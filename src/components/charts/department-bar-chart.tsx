@@ -20,15 +20,18 @@ export interface DepartmentBarPoint {
 
 export function DepartmentBarChart({ data }: { data: DepartmentBarPoint[] }) {
   return (
-    <ResponsiveContainer width="100%" height={320}>
-      <BarChart data={data} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}>
+    <ResponsiveContainer width="100%" height={360}>
+      <BarChart data={data} margin={{ top: 10, right: 8, left: 0, bottom: 24 }}>
         <CartesianGrid stroke="#E3EEEB" vertical={false} />
         <XAxis
           dataKey="department"
-          tick={{ fill: "#686868", fontSize: 12 }}
+          tick={{ fill: "#686868", fontSize: 11 }}
           axisLine={{ stroke: "#D7DADD" }}
           tickLine={false}
           interval={0}
+          angle={-30}
+          textAnchor="end"
+          height={64}
         />
         <YAxis
           tickFormatter={(v) => formatCompactTenge(Number(v))}

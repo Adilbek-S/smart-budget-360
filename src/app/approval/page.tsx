@@ -163,7 +163,7 @@ export default function ApprovalWorkspacePage() {
           <select
             value={department}
             onChange={(e) => setDepartment(e.target.value as "all" | DepartmentId)}
-            className="rounded-full border border-line-soft bg-white px-3.5 py-1.5 text-sm font-medium text-ink outline-none focus:border-teal"
+            className="max-w-[220px] truncate rounded-full border border-line-soft bg-white px-3.5 py-1.5 text-sm font-medium text-ink outline-none focus:border-teal"
           >
             <option value="all">Все подразделения</option>
             {DEPARTMENTS.map((d) => (

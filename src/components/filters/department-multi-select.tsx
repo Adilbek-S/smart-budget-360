@@ -52,7 +52,7 @@ export function DepartmentMultiSelect({ selected, onChange }: DepartmentMultiSel
       </button>
 
       {open && (
-        <div className="absolute left-0 top-[calc(100%+6px)] z-20 w-72 rounded-xl border border-line bg-white p-3 shadow-lg">
+        <div className="absolute left-0 top-[calc(100%+6px)] z-20 w-80 max-h-80 overflow-y-auto rounded-xl border border-line bg-white p-3 shadow-lg sm:w-96">
           <div className="mb-2 flex items-center justify-between gap-2 border-b border-line-soft pb-2">
             <button
               onClick={() => onChange(DEPARTMENTS.map((d) => d.id))}
@@ -70,12 +70,12 @@ export function DepartmentMultiSelect({ selected, onChange }: DepartmentMultiSel
           <ul className="flex flex-col gap-1">
             {DEPARTMENTS.map((d) => (
               <li key={d.id}>
-                <label className="flex cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1.5 text-sm text-ink-soft hover:bg-canvas-3">
+                <label className="flex cursor-pointer items-start gap-2.5 rounded-lg px-2 py-1.5 text-sm leading-snug text-ink-soft hover:bg-canvas-3">
                   <input
                     type="checkbox"
                     checked={selected.includes(d.id)}
                     onChange={() => toggle(d.id)}
-                    className="h-4 w-4 shrink-0 rounded border-line-soft accent-primary"
+                    className="mt-0.5 h-4 w-4 shrink-0 rounded border-line-soft accent-primary"
                   />
                   {d.name}
                 </label>

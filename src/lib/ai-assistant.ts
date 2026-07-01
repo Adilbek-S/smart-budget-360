@@ -3,7 +3,6 @@ import {
   BUDGET_LINES,
   DEPARTMENTS,
   INCOME_PRODUCT_ROWS,
-  departmentName,
   departmentShort,
   getDeviations,
   getDepartmentIncomeBars,
@@ -66,23 +65,15 @@ function pluralRu(n: number, one: string, few: string, many: string): string {
   return many;
 }
 
-function departmentGenitive(id: DepartmentId): string {
-  if (id === "adm") return "Административного департамента";
-  return departmentName(id).replace(/^Департамент/, "Департамента");
-}
-
-function departmentDative(id: DepartmentId): string {
-  if (id === "adm") return "Административному департаменту";
-  return departmentName(id).replace(/^Департамент/, "Департаменту");
-}
-
-function departmentLocative(id: DepartmentId): string {
-  if (id === "adm") return "Административном департаменте";
-  return departmentName(id).replace(/^Департамент/, "Департаменте");
+// Department names vary too much grammatically ("Департамент X", "Управление Y",
+// "Финансовый департамент", "Представительство в г. Астана") to decline reliably,
+// so answers reference departments via their invariant quoted short label instead.
+function departmentLabel(id: DepartmentId): string {
+  return `«${departmentShort(id)}»`;
 }
 
 function scopeDescription(scope: "org" | DepartmentId): string {
-  return scope === "org" ? "организации в целом" : departmentDative(scope);
+  return scope === "org" ? "организации в целом" : `подразделению ${departmentLabel(scope)}`;
 }
 
 function aggregateProductIncome(year: Year, scope: "org" | DepartmentId) {
@@ -131,7 +122,7 @@ function answerRiskOverrun(ctx: AiContext): AiAnswer {
 
   return {
     paragraphs: [
-      `Наибольший риск выявлен по статье «${top.article}» ${departmentGenitive(top.department)}. Прогноз превышает утверждённый план на ${formatPercent(deviationPercent)}, или на ${formatCompactTenge(deviationAmount)}.`,
+      `Наибольший риск выявлен по статье «${top.article}» в подразделении ${departmentLabel(top.department)}. Прогноз превышает утверждённый план на ${formatPercent(deviationPercent)}, или на ${formatCompactTenge(deviationAmount)}.`,
       `Всего выявлено ${rows.length} ${articleWord} с риском превышения бюджета на общую сумму ${formatCompactTenge(totalOverrun)}. Рекомендуется усилить контроль исполнения по указанным направлениям до конца периода.`,
     ],
     stats: [
@@ -170,7 +161,7 @@ function answerDepartmentLag(ctx: AiContext): AiAnswer {
 
   return {
     paragraphs: [
-      `${lagging.length} ${deptWord} ${lagVerb} от плана по доходам. Наибольшее отставание — у ${departmentGenitive(top.departmentId)}: исполнение плана составляет ${formatPercent(top.executionPercent)} (факт ${formatCompactTenge(top.fact)} при плане ${formatCompactTenge(top.plan)}).`,
+      `${lagging.length} ${deptWord} ${lagVerb} от плана по доходам. Наибольшее отставание — в подразделении ${departmentLabel(top.departmentId)}: исполнение плана составляет ${formatPercent(top.executionPercent)} (факт ${formatCompactTenge(top.fact)} при плане ${formatCompactTenge(top.plan)}).`,
       `Отставание создаёт риск невыполнения годового плана по доходам на ${formatCompactTenge(gap)}. Рекомендуется активизировать работу с клиентами и пересмотреть каналы привлечения по данному направлению.`,
     ],
     stats: [
@@ -179,7 +170,7 @@ function answerDepartmentLag(ctx: AiContext): AiAnswer {
       { label: "Отставание по сумме", value: formatCompactTenge(gap), tone: "negative" },
     ],
     recommendations: [
-      `Провести разбор причин отставания в ${departmentLocative(top.departmentId)}.`,
+      `Провести разбор причин отставания в подразделении ${departmentLabel(top.departmentId)}.`,
       "Пересмотреть план продаж или тарифную политику по продуктам с наибольшим отклонением.",
     ],
   };

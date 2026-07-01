@@ -74,7 +74,7 @@ export function FilterBar() {
           value={department}
           disabled={mode !== "department"}
           onChange={(e) => setDepartment(e.target.value as typeof department)}
-          className={`rounded-full border px-3.5 py-1.5 text-sm font-medium outline-none transition-colors ${
+          className={`max-w-[220px] truncate rounded-full border px-3.5 py-1.5 text-sm font-medium outline-none transition-colors ${
             mode === "department"
               ? "border-line-soft bg-white text-ink cursor-pointer hover:border-teal"
               : "border-line bg-canvas-3 text-ink-muted cursor-not-allowed"

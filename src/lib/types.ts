@@ -4,7 +4,20 @@ export type PeriodId = "year" | "q1" | "q2" | "q3" | "q4";
 
 export type FilterMode = "org" | "department";
 
-export type DepartmentId = "it" | "fin" | "product" | "ops" | "sec" | "adm";
+export type DepartmentId =
+  | "techdev"
+  | "it"
+  | "opscontrol"
+  | "cards"
+  | "antifraud"
+  | "payments"
+  | "digitaltenge"
+  | "orgdev"
+  | "fin"
+  | "sec"
+  | "architecture"
+  | "astana"
+  | "adm";
 
 export interface Department {
   id: DepartmentId;
