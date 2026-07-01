@@ -1,26 +1,99 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #295a5b;
+  --color-primary-dark: #1f4444;
+  --color-deep: #005a4b;
+  --color-teal: #4a7d71;
+  --color-accent: #659945;
+  --color-warning: #c68a1e;
+  --color-risk: #c1483d;
+
+  --color-canvas: #f1f6f4;
+  --color-canvas-2: #e9f0ee;
+  --color-canvas-3: #eff3f3;
+  --color-canvas-4: #e3eeeb;
+
+  --color-ink: #252525;
+  --color-ink-soft: #424242;
+  --color-ink-muted: #686868;
+
+  --color-line: #d7dadd;
+  --color-line-soft: #cfdfd9;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-deep: var(--color-deep);
+  --color-teal: var(--color-teal);
+  --color-accent: var(--color-accent);
+  --color-warning: var(--color-warning);
+  --color-risk: var(--color-risk);
+
+  --color-canvas: var(--color-canvas);
+  --color-canvas-2: var(--color-canvas-2);
+  --color-canvas-3: var(--color-canvas-3);
+  --color-canvas-4: var(--color-canvas-4);
+
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-ink-muted: var(--color-ink-muted);
+
+  --color-line: var(--color-line);
+  --color-line-soft: var(--color-line-soft);
+
+  --font-sans: var(--font-roboto);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-line-soft);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-teal);
+}
+
+@keyframes fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

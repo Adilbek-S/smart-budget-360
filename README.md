@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Budget 360
 
-## Getting Started
+Демонстрационный frontend-прототип корпоративной системы бюджетирования. Прототип показывает пользовательские сценарии планирования, согласования, исполнения и анализа бюджета организации — без реального backend.
 
-First, run the development server:
+## Назначение
+
+Прототип предназначен для демонстрации UX/UI корпоративной системы бюджетирования: планирование расходов и доходов, согласование заявок, контроль исполнения бюджета, сценарное моделирование, аналитика и история изменений. Все данные — заранее подготовленные мок-данные, все расчёты выполняются на клиенте.
+
+**Backend, база данных, авторизация и реальные интеграции отсутствуют.** Часть состояний (решения по заявкам, добавленные строки бюджета) сохраняется только в `localStorage` браузера для демонстрации интерактивности.
+
+## Технологии
+
+- [Next.js](https://nextjs.org/) (App Router, Turbopack) + React 19 + TypeScript
+- Tailwind CSS v4
+- [Recharts](https://recharts.org/) — графики и диаграммы
+- [lucide-react](https://lucide.dev/) — иконки
+- Мок-данные и локальное состояние (`useState`, `useSyncExternalStore` + `localStorage`) — без сервера и API
+
+## Запуск проекта
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Приложение будет доступно на [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Для production-сборки:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+Проверка кода:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Страницы
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Раздел | Маршрут | Описание |
+|---|---|---|
+| Главная | `/` | Сводные KPI, динамика расходов, исполнение по подразделениям, риски, заявки на согласовании |
+| Расходы | `/expenses` | Бюджетные строки: фильтры, поиск, сортировка, детали строки, история изменений, добавление новой строки |
+| Доходы | `/income` | Доходы по продуктам: план/факт по месяцам, фильтры, детали и история по строке |
+| Согласование | `/approval` | Рабочее место руководителя: список заявок, карточка заявки с маршрутом согласования, решения (согласовать / вернуть на уточнение / отклонить) |
+| Исполнение бюджета | `/execution` | План/факт/прогноз по месяцам, исполнение по подразделениям, таблица проблемных статей, переключатель расходы/доходы |
+| Сценарное моделирование | `/scenarios` | Три сценария (консервативный/базовый/оптимистичный), настраиваемые параметры, сравнение сценариев, текстовая интерпретация |
+| Аналитика | `/analytics` | Обзор, подразделения, статьи расходов, продукты — 4 вкладки с графиками |
+| История изменений | `/history` | Версии бюджета и журнал действий пользователей с фильтрами |
 
-## Deploy on Vercel
+Во всех разделах доступен **AI-помощник** (плавающая кнопка в правом нижнем углу) — отвечает на предопределённые и произвольные вопросы о бюджете на основе текущих мок-данных и выбранных фильтров, без обращения к внешним AI-сервисам.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Важно
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Это фронтенд-прототип для демонстрации интерфейса и пользовательских сценариев. Все данные условны, изменения не сохраняются на сервере, реальный workflow согласования и экспорт данных не реализованы.
