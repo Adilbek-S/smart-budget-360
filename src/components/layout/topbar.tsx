@@ -1,10 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Bell, Menu } from "lucide-react";
+import { Bell, Menu, Sparkles } from "lucide-react";
 import { pageTitle } from "@/lib/nav";
 
-export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
+interface TopbarProps {
+  onOpenMobile: () => void;
+  onOpenAi: () => void;
+}
+
+export function Topbar({ onOpenMobile, onOpenAi }: TopbarProps) {
   const pathname = usePathname();
   const title = pageTitle(pathname);
 
@@ -22,6 +27,16 @@ export function Topbar({ onOpenMobile }: { onOpenMobile: () => void }) {
       </div>
 
       <div className="flex shrink-0 items-center gap-3 sm:gap-4">
+        <button
+          type="button"
+          aria-label="AI-помощник"
+          onClick={onOpenAi}
+          className="flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark"
+        >
+          <Sparkles size={16} />
+          <span className="hidden sm:inline">AI-помощник</span>
+        </button>
+
         <button
           aria-label="Уведомления"
           className="relative rounded-full p-2 text-ink-soft hover:bg-canvas-2"

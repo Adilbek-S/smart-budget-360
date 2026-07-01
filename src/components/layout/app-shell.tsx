@@ -8,6 +8,7 @@ import { AiAssistant } from "@/components/ai/ai-assistant";
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen w-full max-w-full">
@@ -18,10 +19,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         onCloseMobile={() => setMobileOpen(false)}
       />
       <div className="flex min-w-0 flex-1 flex-col">
-        <Topbar onOpenMobile={() => setMobileOpen(true)} />
+        <Topbar onOpenMobile={() => setMobileOpen(true)} onOpenAi={() => setAiOpen(true)} />
         <main className="min-w-0 flex-1 bg-canvas px-4 py-6 sm:px-6 lg:px-8">{children}</main>
       </div>
-      <AiAssistant />
+      <AiAssistant open={aiOpen} onOpenChange={setAiOpen} />
     </div>
   );
 }

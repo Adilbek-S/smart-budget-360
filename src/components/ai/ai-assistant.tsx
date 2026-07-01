@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Send, Sparkles, X } from "lucide-react";
+import type { Dispatch, SetStateAction } from "react";
 import { useFilters } from "@/lib/filter-context";
 import {
   AI_QUICK_QUERIES,
@@ -27,9 +28,13 @@ const STAT_TONE_CLASS: Record<AiStatTone, string> = {
 
 const ANSWER_DELAY_MS = 700;
 
-export function AiAssistant() {
+interface AiAssistantProps {
+  open: boolean;
+  onOpenChange: Dispatch<SetStateAction<boolean>>;
+}
+
+export function AiAssistant({ open, onOpenChange }: AiAssistantProps) {
   const { year, period, scope } = useFilters();
-  const [open, setOpen] = useState(false);
   const [exchanges, setExchanges] = useState<Exchange[]>([]);
   const [inputValue, setInputValue] = useState("");
   const counter = useRef(0);
@@ -69,20 +74,22 @@ export function AiAssistant() {
         <span className="pointer-events-none absolute bottom-1/2 right-full mr-3 translate-y-1/2 whitespace-nowrap rounded-lg bg-primary-dark px-3 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100">
           AI-помощник
         </span>
+        <span className="pointer-events-none absolute inset-0 animate-[ping_2.4s_cubic-bezier(0,0,0.2,1)_infinite] rounded-full bg-primary/50" />
+        <span className="pointer-events-none absolute inset-0 rounded-full ring-4 ring-primary/20" />
         <button
           type="button"
           aria-label="AI-помощник"
-          onClick={() => setOpen(true)}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-transform duration-150 hover:scale-105 hover:bg-primary-dark active:scale-95"
+          onClick={() => onOpenChange(true)}
+          className="relative flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white shadow-xl shadow-primary/40 transition-transform duration-150 hover:scale-105 hover:bg-primary-dark active:scale-95"
         >
-          <Sparkles size={24} />
+          <Sparkles size={26} />
         </button>
       </div>
 
       <div className={`fixed inset-0 z-[90] ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
         <button
           aria-label="Закрыть AI-помощника"
-          onClick={() => setOpen(false)}
+          onClick={() => onOpenChange(false)}
           className={`fixed inset-0 bg-black/30 transition-opacity duration-200 ${
             open ? "opacity-100" : "opacity-0"
           }`}
@@ -104,7 +111,7 @@ export function AiAssistant() {
             </div>
             <button
               aria-label="Закрыть"
-              onClick={() => setOpen(false)}
+              onClick={() => onOpenChange(false)}
               className="shrink-0 rounded-md p-1 text-ink-muted hover:bg-canvas-2 hover:text-ink"
             >
               <X size={18} />

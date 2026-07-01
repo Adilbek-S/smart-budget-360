@@ -74,20 +74,11 @@ export default function ExpensesPage() {
 
   return (
     <div className="mx-auto flex max-w-[1400px] flex-col gap-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h2 className="text-2xl font-bold text-primary-dark">Расходы</h2>
-          <p className="mt-1 text-sm text-ink-muted">
-            Планирование и контроль расходной части бюджета
-          </p>
-        </div>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="flex shrink-0 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
-        >
-          <Plus size={16} />
-          Новая строка
-        </button>
+      <div>
+        <h2 className="text-2xl font-bold text-primary-dark">Расходы</h2>
+        <p className="mt-1 text-sm text-ink-muted">
+          Планирование и контроль расходной части бюджета
+        </p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -148,7 +139,18 @@ export default function ExpensesPage() {
         <CardHeader
           title="Бюджетные строки"
           subtitle={`Показано строк: ${filteredRows.length}`}
-          action={<FactSourceLegend />}
+          action={
+            <div className="flex flex-wrap items-center gap-4">
+              <FactSourceLegend />
+              <button
+                onClick={() => setModalOpen(true)}
+                className="flex shrink-0 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+              >
+                <Plus size={16} />
+                Новая строка
+              </button>
+            </div>
+          }
         />
         <BudgetLinesTable
           rows={filteredRows}
